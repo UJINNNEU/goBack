@@ -1,0 +1,60 @@
+{
+  "rules": [
+    {
+      "id": 1,
+      "name": "Cклонность к вспыльчивости",
+      "positive_questions": [ 1, 9, 17, 65 ],
+      "negative_questions": [ 25, 33, 41, 49, 57, 73 ],
+      "max_score": 10
+    },
+    {
+      "id": 2,
+      "name": "Cклонность к наступательности, напористости",
+      "positive_questions": [ 2, 10, 18, 42, 50, 58, 66, 74 ],
+      "negative_questions": [ 26, 34 ],
+      "max_score": 10
+    },
+    {
+      "id": 3,
+      "name": "Cклонность к обидчивости",
+      "positive_questions": [ 3, 11, 19, 27, 35, 59 ],
+      "negative_questions": [ 43, 51, 67, 75 ],
+      "max_score": 10
+    },
+    {
+      "id": 4,
+      "name": "Cклонность к неуступчивости",
+      "positive_questions": [ 4, 12, 20, 28, 36, 60, 76 ],
+      "negative_questions": [ 44, 52, 68 ],
+      "max_score": 10
+    },
+    {
+      "id": 5,
+      "name": "Cклонность к бескомпромиссности",
+      "positive_questions": [ 5, 13, 21, 29, 37, 45, 53 ],
+      "negative_questions": [ 61, 69, 77 ],
+      "max_score": 10
+    },
+    {
+      "id": 6,
+      "name": "Cклонность к мстительности",
+      "positive_questions": [ 6, 22, 38, 62, 70 ],
+      "negative_questions": [ 14, 30, 46, 54, 78 ],
+      "max_score": 10
+    },
+    {
+      "id": 7,
+      "name": "Cклонность к нетерпимости к мнению других",
+      "positive_questions": [ 7, 23, 39, 55, 63 ],
+      "negative_questions": [ 15, 31, 47, 71, 79 ],
+      "max_score": 10
+    },
+    {
+      "id": 8,
+      "name": "Cклонность к подозрительности",
+      "positive_questions": [ 8, 24, 32, 48, 56, 64, 72 ],
+      "negative_questions": [ 16, 40, 80 ],
+      "max_score": 10
+    }
+  ]
+}
