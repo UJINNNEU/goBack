@@ -15,6 +15,8 @@ func HandlerHello(c *gin.Context) {
 
 func HandlerGetTest(c *gin.Context) {
 
+
+
 	id, err := strconv.Atoi(c.Param("id"))
 	
 	if err != nil {

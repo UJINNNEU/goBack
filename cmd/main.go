@@ -1,19 +1,22 @@
 package main
 
 import (
-	"backend/internal/handler"
+	_ "backend/internal/handler"
+	"fmt"
 	_ "fmt"
 	_ "log"
 
-	"github.com/gin-gonic/gin"
+	"backend/internal/app"
 )
 
 func main() {
-	router := gin.Default()
+	app, err := app.New()
 
-	router.GET("/", handler.HandlerHello)
-	router.GET("/test/:id", handler.HandlerGetTest)
+	if err != nil {
+		fmt.Println("Start!!!")
+	}
 
-	router.Run()
-
+	if err := app.Run(":8080"); err != nil {
+		fmt.Println("Start!!!")
+	}
 }
