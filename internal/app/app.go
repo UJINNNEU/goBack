@@ -22,7 +22,7 @@ func (a *App) Run(addres string) error {
 	return a.Router.Run(addres)
 }
 
-func New(cfg config.Config) (*App, error) {
+func New(cfg *config.Config) (*App, error) {
 
 	dbConfig := cfg.DB
 
@@ -39,7 +39,7 @@ func New(cfg config.Config) (*App, error) {
 	userHandler := handler.NewUserHandler(userService)
 
 	router := gin.Default()
-
+	
 	userHandler.RegisterRoutes(router)
 	return &App{
 		Router: router,

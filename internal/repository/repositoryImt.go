@@ -17,7 +17,7 @@ func NewUserRepository(db *sql.DB) UserRepository {
 }
 
 func (r *userPostgres) GetByID(ctx context.Context, id int) (*model.User, error) {
-	query := `SELECT id, login FROM users WHERE id = $1`
+	query := `SELECT user_id, login FROM users WHERE user_id = $1`
 
 	var user model.User
 	err := r.db.QueryRowContext(ctx, query, id).Scan(&user.ID, &user.Login)
@@ -32,7 +32,7 @@ func (r *userPostgres) GetByID(ctx context.Context, id int) (*model.User, error)
 }
 
 func (r *userPostgres) GetAll(ctx context.Context) ([]*model.User, error) {
-	query := `SELECT id, login FROM users ORDER BY id`
+	query := `SELECT user_id, login FROM users ORDER BY user_id`
 
 	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
