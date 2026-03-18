@@ -1,6 +1,7 @@
 package db
 
 import (
+	"backend/internal/config"
 	"database/sql"
 	"fmt"
 	"time"
@@ -16,8 +17,9 @@ type Config struct {
 	SSLMode  string
 }
 
-func NewPostgresConnection(cfg Config) (*sql.DB, error) {
+func NewPostgresConnection(cfg config.DBConfig) (*sql.DB, error) {
 
+	
 	dsn := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
 		cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DBName, cfg.SSLMode,
