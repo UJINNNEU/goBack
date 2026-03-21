@@ -1,16 +1,7 @@
 package model
 
-type Test struct {
-	id_test          int
-	version_test     int
-	title_test       string
-	description_test string
-	duration         int
-	questions        []Question
-}
-
-type Question struct {
-	Question_id    int
-	Index          int
-	Question_title string
+type User struct {
+	ID       int    `json:"user_id"`
+	Login    string `json:"loginZ"`
+	Password int    `json:"passwordZ"`
 }
