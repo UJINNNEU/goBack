@@ -17,16 +17,25 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	app, err := app.New(cfg)
 
 	//entities
 	pg, err := postgres.New(cfg.DB)
 	if err != nil {
-		fmt.Println("Start!!!")
+		log.Fatal(err)
 	}
+	defer pg.Close()
 
-	if err := app.Run(":8080"); err != nil {
-		fmt.Println("Start!!!")
+	//repository
+	//TODO принимать в user.New по interface
+	userStorage := user.New(pg.DB)
+
+	//service
+	userService := userSrv.New(userStorage)
+
+	//server
+	server := http_transport.New(cfg.Server, userService)
+
+	if err = server.Run(); err != nil {
+		log.Fatal(fmt.Errorf("server run error: %w", err))
 	}
-
 }
