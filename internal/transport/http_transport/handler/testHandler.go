@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"backend/internal/service"
+	"backend/internal/service/test"
 	"net/http"
 	"strconv"
 
