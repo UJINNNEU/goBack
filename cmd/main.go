@@ -26,6 +26,7 @@ func main() {
 	defer pg.Close()
 
 	//repository
+	//TODO принимать в user.New по interface
 	userStorage := user.New(pg.DB)
 
 	//service
