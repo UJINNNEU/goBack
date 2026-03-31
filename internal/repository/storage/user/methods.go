@@ -1,4 +1,4 @@
-package repository
+package user
 
 import (
 	"backend/internal/model"
@@ -8,19 +8,11 @@ import (
 	"fmt"
 )
 
-type userPostgres struct {
-	db *sql.DB
-}
-
-func NewUserRepository(db *sql.DB) UserRepository {
-	return &userPostgres{db: db}
-}
-
-func (r *userPostgres) GetByID(ctx context.Context, id int) (*model.User, error) {
+func (s *Storage) GetByID(ctx context.Context, id int) (*model.User, error) {
 	query := `SELECT user_id, login FROM users WHERE user_id = $1`
 
 	var user model.User
-	err := r.db.QueryRowContext(ctx, query, id).Scan(&user.ID, &user.Login)
+	err := s.db.QueryRowContext(ctx, query, id).Scan(&user.ID, &user.Login)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil // пользователь не найден
@@ -31,10 +23,10 @@ func (r *userPostgres) GetByID(ctx context.Context, id int) (*model.User, error)
 	return &user, nil
 }
 
-func (r *userPostgres) GetAll(ctx context.Context) ([]*model.User, error) {
+func (s *Storage) GetAllUsers(ctx context.Context) ([]*model.User, error) {
 	query := `SELECT user_id, login FROM users ORDER BY user_id`
 
-	rows, err := r.db.QueryContext(ctx, query)
+	rows, err := s.db.QueryContext(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get all users: %w", err)
 	}

@@ -1,29 +1,40 @@
 package main
 
 import (
+	"backend/internal/postgres"
+	"backend/internal/repository/storage/user"
+	userSrv "backend/internal/service/user"
+	"backend/internal/transport/http_transport"
 	"fmt"
-	_ "log"
+	"log"
 
-	"backend/internal/app"
 	"backend/internal/config"
 )
 
 func main() {
-
-	fmt.Println("Start")
+	//configs
 	cfg, err := config.Load()
-
 	if err != nil {
-		fmt.Print(err)
-		return
-	}
-	app, err := app.New(cfg)
-
-	if err != nil {
-		fmt.Println("Start!!!")
+		log.Fatal(err)
 	}
 
-	if err := app.Run(":8080"); err != nil {
-		fmt.Println("Start!!!")
+	//entities
+	pg, err := postgres.New(cfg.DB)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer pg.Close()
+
+	//repository
+	userStorage := user.New(pg.DB)
+
+	//service
+	userService := userSrv.New(userStorage)
+
+	//server
+	server := http_transport.New(cfg.Server, userService)
+
+	if err = server.Run(); err != nil {
+		log.Fatal(fmt.Errorf("server run error: %w", err))
 	}
 }
