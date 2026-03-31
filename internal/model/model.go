@@ -1,5 +1,7 @@
 package model
 
+import "encoding/json"
+
 type User struct {
 	ID       int    `json:"user_id"`
 	Login    string `json:"loginZ"`
@@ -7,8 +9,9 @@ type User struct {
 }
 
 type TestFull struct {
-	Test      Test       `json:"Test"`
+	Test
 	Questions []Question `json:"Question"`
+	a         json.RawMessage `json: "Test"`
 }
 
 type Test struct {
