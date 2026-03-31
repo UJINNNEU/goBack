@@ -32,15 +32,27 @@ func New(cfg *config.Config) (*App, error) {
 		return nil, fmt.Errorf("DB err %w", err)
 	}
 
-	userRepo := repository.NewUserRepository(database)
+	/*/userRepo := repository.NewUserRepository(database)
 
 	userService := service.NewUserService(userRepo)
 
 	userHandler := handler.NewUserHandler(userService)
 
+	*/
+
+	/*loginRepo := repository.NewLoginRepository(database)
+
+	loginService := service.NewLoginService(loginRepo)
+	loginHandler := handler.NewHandler(loginService)*/
+
+
+	testRepo := repository.NewTestRepository(database)
+	testService := service.NewTestService(testRepo)
+	testHandler := handler.NewTestHandler(testService)
+
 	router := gin.Default()
-	
-	userHandler.RegisterRoutes(router)
+
+	testHandler.RegisterRoutes(router)
 	return &App{
 		Router: router,
 		DB:     database,

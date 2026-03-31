@@ -26,10 +26,6 @@ func (h *UserHandler) RegisterRoutes(router *gin.Engine) {
 	}
 }
 
-type createUserRequest struct {
-	Login string `json:"login" binding:"required"`
-}
-
 func (h *UserHandler) GetUser(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -59,8 +55,4 @@ func (h *UserHandler) ListUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, users)
-}
-
-type updateUserRequest struct {
-	Login string `json:"login" binding:"required"`
 }

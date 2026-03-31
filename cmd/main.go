@@ -19,11 +19,14 @@ func main() {
 	}
 	app, err := app.New(cfg)
 
+	defer app.DB.Close()
+
 	if err != nil {
-		fmt.Println("Start!!!")
+		fmt.Println(err)
 	}
 
-	if err := app.Run(":8080"); err != nil {
-		fmt.Println("Start!!!")
+	if err := app.Run(":8084"); err != nil {
+		fmt.Println(err)
 	}
+
 }
