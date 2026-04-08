@@ -38,7 +38,7 @@ type ServerConfig struct {
 
 func Load() (*Config, error) {
 
-	pathEnv := path.Join("../.env")
+	pathEnv := path.Join("D:/ApplicationBackend/.env")
 	err := godotenv.Load(pathEnv)
 
 	if err != nil {
@@ -55,7 +55,7 @@ func Load() (*Config, error) {
 			SSLMode:  os.Getenv("DB_SSL_MODE"),
 		},
 		Server: ServerConfig{
-			Address: os.Getenv("SERVER_ADDRESS"),
+			Address: os.Getenv("SERVER_PORT"),
 		},
 	}
 

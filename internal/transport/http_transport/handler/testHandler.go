@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"backend/internal/service/test"
+	"backend/internal/service/serviceT"
 	"net/http"
 	"strconv"
 
@@ -9,20 +9,12 @@ import (
 )
 
 type TestHandler struct {
-	testService service.TestService
+	testService *serviceT.TestService
 }
 
-func NewTestHandler(testService service.TestService) *TestHandler {
+func NewTestHandler(testService *serviceT.TestService) *TestHandler {
 	return &TestHandler{
 		testService: testService,
-	}
-}
-
-func (h *TestHandler) RegisterRoutes(router *gin.Engine) {
-	test := router.Group("/api/test")
-	{
-		//test.GET("/:id", h.GetTestByID)
-		test.GET("/:UserId", h.GetAvailableTests)
 	}
 }
 
@@ -30,7 +22,7 @@ func (h *TestHandler) GetTestByID(c *gin.Context) {
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id test"})
 		return
 	}
 
@@ -44,7 +36,7 @@ func (h *TestHandler) GetTestByID(c *gin.Context) {
 }
 
 func (h *TestHandler) GetAvailableTests(c *gin.Context) {
-	id, err := strconv.Atoi(c.Param("UserId"))
+	id, err := strconv.Atoi(c.Param("id_user"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"err": "invalid id_user"})
@@ -57,25 +49,3 @@ func (h *TestHandler) GetAvailableTests(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, tests)
 }
-
-/*
-func (h *TestHandler) GetUser(c *gin.Context) {
-	id, err := strconv.Atoi(c.Param("id"))
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid user id"})
-		return
-	}
-
-	user, err := h.userService.GetByID(c.Request.Context(), id)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	if user == nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "user not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, user)
-}*/

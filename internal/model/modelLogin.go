@@ -8,5 +8,5 @@ type LoginResponse struct {
 
 type LoginRequest struct {
 	Login    string `json:"login"`
-	Password string `json:"password"`
+	Password int `json:"password"`
 }

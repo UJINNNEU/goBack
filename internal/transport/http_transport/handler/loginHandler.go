@@ -1,57 +1,49 @@
 package handler
 
 import (
-	"backend/internal/service/login"
-	"fmt"
+	"backend/internal/model"
+	"backend/internal/service/loginservice"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
-	"backend/internal/model"
 )
 
+type requestBody struct {
+	Login    string `json:"login"`
+	Password int    `json:"password"`
+}
+
 type LoginHandler struct {
-	loginService service.LoginService
+	loginService *loginservice.LoginService
 }
 
-func NewHandler(loginService service.LoginService) *LoginHandler {
+func NewLoginHandler(loginService *loginservice.LoginService) *LoginHandler {
 	return &LoginHandler{
-		loginService: loginService,
-	}
+		loginService: loginService}
 }
 
-func (h *LoginHandler) RegisterRoutes(router *gin.Engine) {
-	login := router.Group("/api/signIn")
-	{
-		login.POST("", h.SignIn)
-	}
-}
+func (l *LoginHandler) SignIn(c *gin.Context) {
 
-func (h *LoginHandler) SignIn(c *gin.Context) {
-
-	userLogin := model.LoginRequest{}
-	err := c.ShouldBindBodyWithJSON(&userLogin)
-
-	if err != nil {
+	var requestBody requestBody
+	if err := c.ShouldBindJSON(&requestBody); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid request body",
-		})
+			"login": "fail",
+			"error": err.Error()})
 		return
 	}
-
-	resp, err := h.loginService.LogIn(c.Request.Context(), userLogin)
-
+	var request model.LoginRequest = model.LoginRequest{
+		Login:    requestBody.Login,
+		Password: requestBody.Password,
+	}
+	response, err := l.loginService.SignIn(c.Request.Context(), request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
+			"login": "fail",
+			"error": err.Error()})
 		return
 	}
-
-	message := fmt.Sprintf("Name %s, role %s, id %d",
-		resp.Name, resp.Role, resp.Id)
 	c.JSON(http.StatusOK, gin.H{
-		"message": message,
-	})
+		"login":    "success",
+		"responce": response})
 	return
 }

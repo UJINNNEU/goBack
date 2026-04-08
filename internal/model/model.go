@@ -10,17 +10,11 @@ type User struct {
 
 type TestFull struct {
 	Test
-	Questions []Question `json:"Question"`
-	a         json.RawMessage `json: "Test"`
+	Questions json.RawMessage `json:"Questions"`
 }
 
 type Test struct {
-	Test_id          int    `json:"Test_id"`
-	Test_title       string `json:"Test_title"`
-	Test_description string `json: "Test_description"`
-}
-
-type Question struct {
-	Question_id    int    `json: "Question_id"`
-	Question_title string `json: "Question_title"`
+	Id          int    `json:"Id"`
+	Title       string `json:"Title"`
+	Description string `json:"Description"`
 }
