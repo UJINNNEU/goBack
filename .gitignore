@@ -1,1 +1,30 @@
+# Env / secrets
 .env
+
+# Go binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go test & coverage
+*.test
+*.out
+coverage.*
+/coverage/
+
+# Dependency dir (если вдруг появится)
+/vendor/
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/launch.json
+
+# macOS
+.DS_Store
+
+# Logs & tmp
+*.log
+/.cache/

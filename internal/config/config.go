@@ -20,7 +20,7 @@ func (c *Config) isValid() bool {
 		c.DB.User != "" &&
 		c.DB.Password != "" &&
 		c.DB.DBName != "" &&
-		c.Server.Port != ""
+		c.Server.Address != ""
 }
 
 type DBConfig struct {
@@ -33,12 +33,12 @@ type DBConfig struct {
 }
 
 type ServerConfig struct {
-	Port string
+	Address string
 }
 
 func Load() (*Config, error) {
 
-	pathEnv := path.Join("../.env")
+	pathEnv := path.Join("D:/ApplicationBackend/.env")
 	err := godotenv.Load(pathEnv)
 
 	if err != nil {
@@ -55,7 +55,7 @@ func Load() (*Config, error) {
 			SSLMode:  os.Getenv("DB_SSL_MODE"),
 		},
 		Server: ServerConfig{
-			Port: os.Getenv("SERVER_PORT"),
+			Address: os.Getenv("SERVER_PORT"),
 		},
 	}
 
