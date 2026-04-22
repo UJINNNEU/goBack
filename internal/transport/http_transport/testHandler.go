@@ -1,4 +1,4 @@
-package handler
+package http_transport
 
 import (
 	"backend/internal/service/serviceT"
@@ -18,7 +18,7 @@ func NewTestHandler(testService *serviceT.TestService) *TestHandler {
 	}
 }
 
-func (h *TestHandler) GetTestByID(c *gin.Context) {
+func (h *Server) GetTestByID(c *gin.Context) {
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

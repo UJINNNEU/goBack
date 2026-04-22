@@ -1,4 +1,4 @@
-package handler
+package http_transport
 
 import (
 	"backend/internal/model"

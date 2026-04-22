@@ -7,21 +7,23 @@ import (
 )
 
 func (s *TestStorage) GetTestById(ctx context.Context, id int) (model.TestFull, error) {
-
 	var testfull model.TestFull
-	rows, err := s.db.Query(
-		`SELECT 
+
+	query := `SELECT 
     		t.id,
     		t.title_test,
     		t.description_test,
     	  	t.questions_in_test
 		FROM tests t
-		WHERE t.id = $1;`, id)
+		WHERE t.id = $1;`
 
+	//TODO сделать везде с контекстом
+	rows, err := s.db.QueryContext(ctx, query, id)
 	if err != nil {
-		defer rows.Close()
+
 		return testfull, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 

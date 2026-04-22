@@ -20,10 +20,10 @@ func (l *LoginRepository) SignIn(ctx context.Context, loginRequest model.LoginRe
 	rows, err := l.db.Query(query,
 		loginRequest.Login,
 		loginRequest.Password)
-
 	if err != nil {
-		defer rows.Close()
+		return loginResponse, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		if err := rows.Scan(

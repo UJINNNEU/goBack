@@ -2,7 +2,6 @@ package http_transport
 
 import (
 	"backend/internal/config"
-	"backend/internal/transport/http_transport/handler"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,13 +9,13 @@ import (
 type Server struct {
 	gin          *gin.Engine
 	cfg          config.ServerConfig
-	testHandler  handler.TestHandler
-	loginHandler handler.LoginHandler
+	testHandler  TestHandler
+	loginHandler LoginHandler
 }
 
 func New(cfg config.ServerConfig,
-	testHandler handler.TestHandler,
-	loginHandler handler.LoginHandler) *Server {
+	testHandler TestHandler,
+	loginHandler LoginHandler) *Server {
 	s := &Server{
 		gin:          gin.Default(),
 		cfg:          cfg,
@@ -30,8 +29,8 @@ func New(cfg config.ServerConfig,
 func (s *Server) registerRoutes() {
 	test := s.gin.Group("/api/tests")
 	{
-		test.GET("/:id", s.testHandler.GetTestByID)
-		test.GET("/user/:id_user", s.testHandler.GetAvailableTests)
+		test.GET("/:id", s.GetTestByID)
+		test.GET("/user/:id_user", s.GetAvailableTests)
 	}
 	login := s.gin.Group("/login")
 	{
